@@ -8,7 +8,9 @@ step_dat_raw <- read.csv("activity.csv")
 library(dplyr)
 grouped_step_dat <- group_by(step_dat_raw, date)
 step_dat_days <- summarise(grouped_step_dat, steps_day=sum(steps))
+```
 
+```r
 hist(step_dat_days$steps_day, 
 	col = "red",
 	main="Histogram of Steps Taken per Day",
@@ -16,7 +18,7 @@ hist(step_dat_days$steps_day,
 	)
 ```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
 
 ```r
 ## Calculate mean and median steps per day
@@ -46,7 +48,7 @@ plot(step_dat_int$interval, step_dat_int$steps_int
 	,main= "Average Steps taken in 5 minute intervals")
 ```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-2.png)
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
 ```r
 ## Calculate number of missing data entries 
@@ -82,7 +84,7 @@ hist(step_dat_raw_nona_days$steps_day,
 	)
 ```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-3.png)
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-2.png)
 
 ```r
 ## and recalculate the mean and median number to compare to original dataset
@@ -118,4 +120,4 @@ library(ggplot2)
 qplot(interval, steps_day, data=step_dat_wewd )+facet_wrap(~wewd, nrow=2)
 ```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-4.png)
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-3.png)

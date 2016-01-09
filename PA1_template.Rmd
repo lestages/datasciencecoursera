@@ -7,12 +7,15 @@ step_dat_raw <- read.csv("activity.csv")
 library(dplyr)
 grouped_step_dat <- group_by(step_dat_raw, date)
 step_dat_days <- summarise(grouped_step_dat, steps_day=sum(steps))
-
+```
+```{r, ECHO=TRUE}
 hist(step_dat_days$steps_day, 
 	col = "red",
 	main="Histogram of Steps Taken per Day",
 	xlab="Steps Taken"
 	)
+```
+```{r}
 ## Calculate mean and median steps per day
 mean(step_dat_days$steps_day, na.rm = TRUE)
 median(step_dat_days$steps_day, na.rm = TRUE)
