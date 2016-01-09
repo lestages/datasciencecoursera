@@ -1,41 +1,14 @@
-# Project 1 of Reproducible Research
 
-
-
-
-```r
 ## Read in activity data from local directory
 
+```r
 step_dat_raw <- read.csv("activity.csv")
 
 ##Sum up steps per day and plot in a histogram
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 grouped_step_dat <- group_by(step_dat_raw, date)
 step_dat_days <- summarise(grouped_step_dat, steps_day=sum(steps))
-```
 
-
-```r
 hist(step_dat_days$steps_day, 
 	col = "red",
 	main="Histogram of Steps Taken per Day",
@@ -43,12 +16,19 @@ hist(step_dat_days$steps_day,
 	)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)\
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
 
-Calculate the mean and median steps per day shown below respectively
+```r
+## Calculate mean and median steps per day
+mean(step_dat_days$steps_day, na.rm = TRUE)
+```
 
 ```
 ## [1] 10766.19
+```
+
+```r
+median(step_dat_days$steps_day, na.rm = TRUE)
 ```
 
 ```
@@ -66,13 +46,10 @@ plot(step_dat_int$interval, step_dat_int$steps_int
 	,main= "Average Steps taken in 5 minute intervals")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)\
-
-Peak number of steps occurs somewhere near 8:30 AM or so which is when most people are getting into work
-
-Calculate number of missing data entries
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-2.png)
 
 ```r
+## Calculate number of missing data entries 
 sum(is.na(step_dat_raw$steps))
 ```
 
@@ -97,9 +74,7 @@ step_dat_raw_nona$steps[is.na(step_dat_raw_nona$steps)] <- 37
 library(dplyr)
 grouped_step_dat <- group_by(step_dat_raw_nona, date)
 step_dat_raw_nona_days <- summarise(grouped_step_dat, steps_day=sum(steps))
-```
 
-```r
 hist(step_dat_raw_nona_days$steps_day, 
 	col = "red",
 	main="Histogram of Steps Taken per Day",
@@ -107,12 +82,10 @@ hist(step_dat_raw_nona_days$steps_day,
 	)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)\
-
-And recalculate the mean and median number to compare to original dataset
-showing the values drop with this particular method of filling missing data
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-3.png)
 
 ```r
+## and recalculate the mean and median number to compare to original dataset
 mean(step_dat_raw_nona_days$steps_day, na.rm = TRUE)
 ```
 
@@ -141,19 +114,8 @@ library(dplyr)
 ## Sum up steps by interval and weekday vs weekend and plot in two panel line chart
 grouped_step_wewd <- group_by(step_dat_raw_nona, interval, wewd)
 step_dat_wewd <- summarise(grouped_step_wewd, steps_day=sum(steps))
-```
-
-```r
 library(ggplot2)
-```
-
-```
-## Warning: package 'ggplot2' was built under R version 3.2.3
-```
-
-```r
 qplot(interval, steps_day, data=step_dat_wewd )+facet_wrap(~wewd, nrow=2)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-10-1.png)\
-
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-4.png)
